@@ -1,0 +1,237 @@
+\usepackage{tikz-network}
+\usepackage{faktor}
+\usepackage{comment}
+
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}
+\graphicspath{./figures/}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{backgrounds}
+\usepgfplotslibrary{patchplots}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{%
+     layers/standard/.define layer set={%
+         background,axis background,axis grid,axis ticks,axis lines,axis tick labels,pre main,main,axis descriptions,axis foreground%
+     }{
+         grid style={/pgfplots/on layer=axis grid},%
+         tick style={/pgfplots/on layer=axis ticks},%
+         axis line style={/pgfplots/on layer=axis lines},%
+         label style={/pgfplots/on layer=axis descriptions},%
+         legend style={/pgfplots/on layer=axis descriptions},%
+         title style={/pgfplots/on layer=axis descriptions},%
+         colorbar style={/pgfplots/on layer=axis descriptions},%
+         ticklabel style={/pgfplots/on layer=axis tick labels},%
+         axis background@ style={/pgfplots/on layer=axis background},%
+         3d box foreground style={/pgfplots/on layer=axis foreground},%
+     },
+ }
+
+ \usetikzlibrary{decorations.pathreplacing,decorations.markings}
+ \tikzset{
+   % style to apply some styles to each segment of a path
+   on each segment/.style={
+     decorate,
+     decoration={
+       show path construction,
+       moveto code={},
+       lineto code={
+         \path [#1]
+         (\tikzinputsegmentfirst) -- (\tikzinputsegmentlast);
+       },
+       curveto code={
+         \path [#1] (\tikzinputsegmentfirst)
+         .. controls
+         (\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb)
+         ..
+         (\tikzinputsegmentlast);
+       },
+       closepath code={
+         \path [#1]
+         (\tikzinputsegmentfirst) -- (\tikzinputsegmentlast);
+       },
+     },
+   },
+   % style to add an arrow in the middle of a path
+   mid arrow/.style={postaction={decorate,decoration={
+         markings,
+         mark=at position .5 with {\arrow[#1]{stealth}}
+       }}},
+ }
+ 
+
+
+%%%% COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\insidefigure}[3][0.5\columnwidth]{
+      \begin{center}
+            \begin{minipage}{#1}
+                  \centering
+                  #2
+                  \captionof{figure}{#3}
+            \end{minipage}
+      \end{center}
+}
+
+\newcommand*{\mc}[1]{\mathcal{#1}}
+\renewcommand*{\bar}[1]{\overline{#1}}
+\renewcommand*{\b}[1]{\mathbf{#1}}
+\newcommand*\eps{\varepsilon}
+\newcommand*{\V}[1]{ \mc V_{#1}(\mc K)}
+\newcommand*{\vn}{\varnothing}
+\newcommand*{\ord}[1]{\mathrm{ord}\,(#1)}
+
+\usepackage{dsfont}
+\newcommand*{\ds}[1]{\mathds{#1}}
+
+\newcommand*{\Lu}[1]{L_{#1}^{\uparrow}}
+\newcommand*{\bLu}[1]{{\overline{L}^{\uparrow}}_{#1}}
+\newcommand*{\Ld}[1]{L_{#1}^{\downarrow}}
+\newcommand*{\bLd}[1]{{\overline{L}^{\downarrow}}_{#1}}
+
+\newcommand*{\wh}[1]{\widehat{#1}}
+
+
+\renewcommand*{\bar}[1]{ \overline{#1} }
+
+
+\newcommand{\algname}{\texttt{HeCS}}
+
+
+\DeclareMathOperator{\im}{im}
+\let\span\relax
+\DeclareMathOperator{\span}{span}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Tr}{Tr}
+
+
+
+
+
+
+
+
+\usetikzlibrary{patterns}
+\definecolor{bananamania}{rgb}{0.98, 0.91, 0.71}
+\definecolor{lavender}{rgb}{0.4470588235294118, 0.5294117647058824, 0.992156862745098}
+\definecolor{burntsienna}{rgb}{0.91, 0.45, 0.32}
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{liberty}{HTML}{5158BB}
+\definecolor{junglegreen}{rgb}{0.16, 0.67, 0.53}
+\definecolor{persimmon}{HTML}{DE5A02}
+
+
+\newcommand{\AxisRotator}[1][rotate=0]{%
+    \tikz [x=0.15cm,y=0.15cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+}
+\newcommand{\AxisRotatorMirror}[1][rotate=0]{%
+    \tikz [x=0.15cm,y=0.15cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (150:-150:1 and 1);%
+}
+\newcommand{\EVert}[2]{%
+\left[\begin{smallmatrix} #1 \\ #2 \end{smallmatrix}\right]
+}
+\newcommand{\TVert}[3]{%
+\left[\begin{smallmatrix} #1 \\ #2 \\ #3 \end{smallmatrix}\right]
+}
+
+\usepackage{amsthm}
+\usepackage[capitalize, nameinlink]{cleveref}
+\crefdefaultlabelformat{\color{liberty}#1#2#3}
+
+
+\crefname{section}{section}{sections}
+\crefname{subsection}{subsection}{subsections}
+\Crefname{section}{Section}{Sections}
+\Crefname{subsection}{Subsection}{Subsections}
+\Crefname{figure}{Figure}{Figures}
+\Crefname{definition}{Definition}{Definitions}
+\Crefname{proposition}{Proposition}{Propositions}
+\Crefname{lemma}{Lemma}{Lemmas}
+\Crefname{remark}{Remark}{Remarks}
+\Crefname{problem}{Problem}{Problems}
+\crefformat{equation}{\textup{#2(#1)#3}}
+\crefrangeformat{equation}{\textup{#3(#1)#4--#5(#2)#6}}
+\crefmultiformat{equation}{\textup{#2(#1)#3}}{ and \textup{#2(#1)#3}}
+{, \textup{#2(#1)#3}}{, and \textup{#2(#1)#3}}
+\crefrangemultiformat{equation}{\textup{#3(#1)#4--#5(#2)#6}}%
+{ and \textup{#3(#1)#4--#5(#2)#6}}{, \textup{#3(#1)#4--#5(#2)#6}}{, and \textup{#3(#1)#4--#5(#2)#6}}
+
+\Crefformat{equation}{#2Equation~\textup{(#1)}#3}
+\Crefrangeformat{equation}{Equations~\textup{#3(#1)#4--#5(#2)#6}}
+\Crefmultiformat{equation}{Equations~\textup{#2(#1)#3}}{ and \textup{#2(#1)#3}}
+{, \textup{#2(#1)#3}}{, and \textup{#2(#1)#3}}
+\Crefrangemultiformat{equation}{Equations~\textup{#3(#1)#4--#5(#2)#6}}%
+{ and \textup{#3(#1)#4--#5(#2)#6}}{, \textup{#3(#1)#4--#5(#2)#6}}{, and \textup{#3(#1)#4--#5(#2)#6}}
+
+\crefdefaultlabelformat{#2\textup{#1}#3}
+
+
+
+
+%\newcommand{\algname}{\texttt{HeCS}}
+
+
+\newtheorem{problem}{Problem}
+
+\usepackage{enumitem}
+
+\DeclareMathOperator{\diag}{diag} 
+
+\newenvironment{mt}{\begin{pmatrix}}{\end{pmatrix}}
+
+\usepackage{multirow}
+\usepackage{booktabs}
+
+\usepackage{nicematrix}
+
+\NiceMatrixOptions
+  {
+    custom-line = 
+     {
+       letter = : ,
+       command = dashedline , 
+       ccommand = cdashedline ,
+       tikz = dotted
+     }
+  }
+
+  \setcounter{MaxMatrixCols}{20}
+  \usepackage{amsmath}
+  \allowdisplaybreaks
+  
+\usepackage{wasysym}
+\usepackage{stackengine}
+
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+  \newcommand\obullet[1]{\ensurestackMath{\stackon[0pt]{#1}{\mkern1mu\bigcdot}}}
+%\renewcommand{\dot}{\obullet}
+
+\DeclareMathOperator*{\vect}{\mathrm{diagvec}}
+\DeclareMathOperator*{\grad}{\mathrm{grad}}
+\DeclareMathOperator*{\diver}{\mathrm{div}}
+\DeclareMathOperator*{\curl}{\mathrm{curl}}
+
+\newcommand\mr{\min^+_{\mathrm{row}}}
+\renewcommand*{\deg}{\mathrm{deg}}
+\newcommand\scal[1]{\left\langle {#1} \right\rangle}
+
+%\usepackage[caption=false]{subfig}
+
+\DeclareMathOperator{\argmin}{arg\,min}
+\usepackage{xfrac}
+
+%\usepackage{unicode-math}
+%\usepackage{fontspec}
+
+%\setmainfont{Zed Sans Light Extended}
+%\setmainfont{Nunito Light}
+%\setmainfont{Poppins Light}
+%\setmathfont{Iwona Light}
+%\setmathfont[Scale=1.5]{Nunito Light}%\setmathfont[Scale=1.2]

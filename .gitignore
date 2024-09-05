@@ -1,0 +1,42 @@
+# Ignore LaTeX output files
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.lof
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Ignore backup and temporary files
+*.bak
+*.swp
+*.lyx~
+# Ignore specific editor files
+*.lyx,v
+*.lyx#
+# Ignore Dropbox config files
+.dropbox...
+# Ignore additional auxiliary files
+*.glo
+*.idx
+*.ilg
+*.ind
+*.maf
+*.mtc
+*.mtc1
+*.acn
+*.acr
+*.alg
+# Ignore other unnecessary files
+*.cb
+*.cb2
+*.lb
+
+.vscode/
+**/.DS_Store
+
