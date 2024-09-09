@@ -106,6 +106,7 @@
 
       \setlength{\marginparwidth}{.5in}
       \setlength{\marginparsep}{5pt}
+      \setlength{\parskip}{2pt}
 
 
       \geometry{paperheight=11.7in,paperwidth=8.3in,                   %fix paperwidth and height.
