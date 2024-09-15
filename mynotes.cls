@@ -276,6 +276,9 @@
       }
       \declaretheorem[style=corollary]{Corollary}
 
+      
+
+
       \declaretheoremstyle[
       headfont={\color{jet} \itshape},
       notefont={\normalfont},
@@ -341,6 +344,23 @@
       }
       \renewcommand{\thelemma}{\thesection.\arabic{lemma}}
 
+      \theoremstyle{theorem}
+      \newtheorem{alert}{alrt}
+      \tcolorboxenvironment{alert}{
+      boxrule=0pt,
+      boxsep=0pt,
+      enhanced jigsaw, 
+      colback={white!70!rwth-red},
+      borderline west={3pt}{0pt}{rwth-red},
+      before skip=10pt,
+      after skip=10pt,
+      sharp corners,
+      left=5pt,
+      right=5pt,
+      breakable,
+      colupper=black4,
+      }
+      %\renewcommand{\thealert}{\thesection.\arabic{lemma}}
 
       \theoremstyle{theorem}
       \newtheorem{remark}{Rem}

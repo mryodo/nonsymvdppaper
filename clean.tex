@@ -95,7 +95,10 @@ All of our consideration and defined entities are well-posed only for synchroniz
       Under specific simplifying assumptions, one may reduce symmetrically coupled vdP system ( \Cref{eq:system} ) to a simple Kuramoto model where the synchronization is achieved if and only if \( \mu > \dw \); previously, we inherited that property for the symmetric vdP system which seeemed to hold experimentally.
       \\[5pt]
 
-      At the same time, in the nonsymmetric Kuramoto case, assuming initial frequencies \( \Omega_1 \) and \( \Omega_2 \), the system is synchronized if \[ \mu_1 > \Omega_1 - \Omega_0  \text{ and } \mu_2 > \Omega_2 - \Omega_0 \] where \( \Omega_0 \) is the common synchronized frequency, \( \Omega_0 = \frac{ \mu_1 \Omega_1 + \mu_2 \Omega_2 }{ \mu_1 + \mu_2 } \). Note that this principle may be expected to largely translate to the vdP case with certain caveats; specifically, it is challenging to redefine \( \Omega_0 \) since even for \( \mu_1 = \mu_2 = \mu \) the common frequency was shown to be dependent on \( \mu \), \( \Omega_0 = \Omega_0 ( \mu ) \), albeit this dependence is rather small.
+      At the same time, in the nonsymmetric Kuramoto case, assuming initial frequencies \( \Omega_1 \) and \( \Omega_2 \), the system is synchronized if \[ \mu_1 > \Omega_1 - \Omega_0  \text{ and } \mu_2 > \Omega_2 - \Omega_0 \] where \( \Omega_0 \) is the common synchronized frequency, \( \Omega_0 = \frac{ \mu_2 \Omega_1 + \mu_1 \Omega_2 }{ \mu_1 + \mu_2 } \). Note that this principle may be expected to largely translate to the vdP case with certain caveats; specifically, it is challenging to redefine \( \Omega_0 \) since even for \( \mu_1 = \mu_2 = \mu \) the common frequency was shown to be dependent on \( \mu \), \( \Omega_0 = \Omega_0 ( \mu ) \), albeit this dependence is rather small.
+      \\[5pt]
+
+      Moreover, \( \mu_1 > \frac{ \mu_2 \Omega_1 + \mu_1 \Omega_2 }{ \mu_1 + \mu_2 } - \Omega_1  = \frac{ \mu_1 ( \Omega_2 - \Omega_1 )  }{ \mu_1 + \mu_2 } = \frac{ 2 \mu_1 \dw  }{ \mu_1 + \mu_2 } \Leftrightarrow \frac{ \mu_1 + \mu_2 }{2} > \dw \) . Hence, in the case of RHS, for \( \mu_2 = 0 \) we get \( \mu_1 \ge 2 \dw \).
 \end{remark}
 \todo{probably worth recalling some series expansions here}.
 
@@ -108,7 +111,7 @@ We base our estimates on the relative placement of local minima of \( \{ x(t), y
 \begin{enumerate}[ topsep = -0.5em, itemsep = -0.25em ]
       \item[\color{rwth-blue}(i)] solve the system (\eqref{eq:system}) for long-enough time (specifically, we solve for \( [ 0; T ] = [ 0; 2 \pi N ]\), \( N = 100 \) ); this length is based on the notion that the first order approximation of the isolated vdP frequency is \( 1 \), so the first order period is \( 2 \pi \) \todo{ here a reference for the series decomposition should be };
       \item[\color{rwth-blue}(ii)] for each oscillator \( \{ x(t), y(t) \} \) we extract position of local minima \( \{ \tau_x^{(i)} \}\) and \( \{ \tau_y^{(i)} \}\)  \todo{one can do this with preexisting tools, but the fact is that ODEsolver computes an approximation of \( \dot x \) and \( \dot y \), so one can extract minima from them};
-      \item[\color{rwth-blue}(iii)] then one can define \textit{empirical} frequencies as \( \left\{ \Omega_x^{(i)} \right\} = \left\{ \frac{1}{ \tau_x^{(i+1)} - \tau_x^{(i)} } \right\} \) and \( \left\{ \Omega_y^{(i)} \right\} = \left\{ \frac{1}{ \tau_y^{(i+1)} - \tau_y^{(i)} } \right\} \) respectively; we measure the standard deviation of the frequency sequences \( \left\{ \Omega_x^{(i)} \right\} \) over the last \( 20 \) minima (relative to the mean value) to ascertain synchronization;
+      \item[\color{rwth-blue}(iii)] then one can define \textit{instantaneous} frequencies as \( \left\{ \Omega_x^{(i)} \right\} = \left\{ \frac{1}{ \tau_x^{(i+1)} - \tau_x^{(i)} } \right\} \) and \( \left\{ \Omega_y^{(i)} \right\} = \left\{ \frac{1}{ \tau_y^{(i+1)} - \tau_y^{(i)} } \right\} \) respectively; we measure the standard deviation of the frequency sequences \( \left\{ \Omega_x^{(i)} \right\} \) over the last \( 20 \) minima (relative to the mean value) to ascertain synchronization;
       \item[\color{rwth-blue}(iv)] finally, we posit that the phase difference \( \Delta\varphi \) never exceeds half a period, so in order to calculate it, we find for each minimum \( \tau_x^{(i)} \) the closest minimum \( \tau_y^{(j)} \); then, we say that \( \Delta\phi^{(i)} = \left| \tau_x^{(i)} - \tau_y^{(j)} \right| \) and compute the stability of the sequence in the same manner. 
 \end{enumerate}
  
@@ -121,13 +124,90 @@ We base our estimates on the relative placement of local minima of \( \{ x(t), y
       }
 \end{figure}
 
-We provide the stabilization of frequency and the phase difference in \Cref{fig:synch_heatmap}. It is worth pointing out that:
+We provide the stabilization of frequency and the phase difference in \Cref{fig:synch_heatmap} and synchronization boundary for different values of \( \dw \) in \Cref{fig:synch_boundary}: 
+\begin{figure}[hbtp]
+      \centering
+      \includegraphics[width = 0.66\columnwidth]{figures/synch_boundary_2.pdf}
+      \caption{
+            Synchronization boundary of oscillators (\Cref{eq:system}) for different values \( \dw \). Integration time is set to \( N = 100 \).
+            \label{fig:synch_boundary}
+      }
+\end{figure}
+
+
+It is worth pointing out that:
 \begin{itemize}[ topsep = -0.5em, itemsep = -0.25em ]
-      \item point \( \mu_1 = \mu_2 = \dw \) lends on the boundary, upholding observed behaviour in the symmetric case;
-      \item in the case of \( \mu_1 = 0 \), Kuramoto synchronization (see \Cref{rem:kuramoto_synch}) requires \( \mu_2 \ge \dw \) (and vice versa), which is evidently too restrictive for the vdP case;
+      \item point \( \mu_1 = \mu_2 = \dw \) lands on the boundary, upholding observed behaviour in the symmetric case;
+      \item in the case of \( \mu_1 = 0 \), Kuramoto synchronization (see \Cref{rem:kuramoto_synch}) requires \( \mu_2 \ge 2\dw \) (and vice versa), which is evidently too restrictive for the vdP case; moreover, same holds for the neighbouring areas (one small coupling + one medium coupling; insufficient for Kuramoto, but seemingly enough for vdP);
+      \item Kuramoto oscillators are the same in terms of the synchronization boundary; instead, vdP oscillators are not symmetric. More importantly, this asymmetry creates an area in the coupling space sufficient for the synchronization of Kuramoto but insufficient for vdP;
       \item phase and frequency synchronizations remain joint and are achieved simultaneously;
       \item the boundary is impressively pronounced, so one may at least attempt to speculate about the actual function and synchronization inequality.
 \end{itemize}
+
+
+
+\section{ Vertical shift and phase difference }
+
+Following the previously established results for the symmetrically coupled vdP oscillators, we revisit previously unseen appearance of pre-limit vertical shift between oscillators.
+
+\begin{alert}[Inconsistency!]
+      We have a problem: phase difference is defined differently two times (for the synchronization and vertical shift). They \textit{should} be consistent between each other in the synchronized case, but it seems like minima-based definition is somewhat less numerically stable. 
+      \\[5pt]
+
+      \textit{\color{rwth-red}Requires further investigation!}
+\end{alert}
+
+Namely, let \( x(t) \) and \( y(t) \) be solution of \Cref{eq:system}. Then, 
+for a chosen \( T^* \) we define the \emph{phase difference} \( \varphi \) as a horizontal shift minimizing maximal mismatch between solutions for \( t > T^* \)\todo{it seems to be stable wrt \( T^*\)\dots; before we did \( T^* = \tau_{LC }\), but it is a more complicated thing to compute, so we provide results for a fixed \( T^* = 100 T \) for now } and the \emph{vertical shift} \( C \), or, more explicitly:
+\begin{equation}
+      \begin{aligned}
+            & \varphi = \argmin_{ \varphi \in [0; T] } \left[ \max_{ t \in [ T^*; T^* + T ] } \left(  x( t + \varphi ) - y( t )  \right) \right] \\
+            & \hat C = \min_{ \varphi \in [0; T] } \left[ \max_{ t \in [ T^*; T^* + T ] } \left(  x( t + \varphi ) - y( t )  \right) \right] 
+      \end{aligned}
+\end{equation}
+where \( T \) is the common synchronized period of oscillators. Note that such definition of the vertical shift is biased by the amplitude difference \( \Delta A \) \todo{it is insignicant and boring, but it is a fair thing to account for}; in order to track it we introduce an instantaneous amplitude estimator:
+\begin{equation}
+      \begin{aligned}
+            & A_x = \frac{1}{2} \left[ \max_{ \tau \in [T^*; T^* + T ] } x( \tau ) - \min_{ \tau \in [T^*; T^* + T ] } x( \tau ) \right] \\
+            & A_y = \frac{1}{2} \left[ \max_{ \tau \in [T^*; T^* + T ] } y( \tau ) - \min_{ \tau \in [T^*; T^* + T ] } y( \tau ) \right] \\
+            & C = \hat C - \Delta A = \hat C - \left( A_x - A_y \right)
+      \end{aligned}
+\end{equation}
+
+\begin{figure}[h!]
+      \vspace{-10pt}
+      \centering
+      \includegraphics[width = 1.0\columnwidth]{figures/vertshift_heatmap.pdf}
+      \caption{
+            Vertical shift \( C(\mu_1, \mu_2 )\) for various values of couplings (enlarged regions of the overall curve are shown on the right). Grey line on \textbf{(B)} corresponds to the approximate point of monotonicity change. \( \dw = 0.2, T^* = 100 T  \) \label{fig:C_hm}
+      }
+\end{figure}
+
+Since each pair of solutions is defined by the pair couplings \( \left( \mu_1, \mu_2 \right) \), each of the introduced values ( \( \varphi, C, \Delta A \)) are functions of  \( \left( \mu_1, \mu_2 \right) \). 
+
+We demonstrate the behaviour of the the unbiased \( C( mu_1, mu_2 )\) in \Cref{fig:C_hm}\todo{ \( C \) lacks \( \hat C \) in the figure; will fix later}. The value is not computed for the system lacking synchronization, resulting in the missing area for small values of \( ( \mu_1, \mu_2 ) \) (see \Cref{fig:C_hm}A). The most interesting pattern for us is contained in the area \( \mu_1 > \dw , \mu_2 > \dw\), \Cref{fig:C_hm}B: the value of the unbiased vertical shift still exhibits a pronounced ``switch'' or monotonicity change (grey line\todo{very shake-y and noisy, will probably be smoothed later} on  \Cref{fig:C_hm}B ) ; the switch is consistent with the previous results for \( \mu_1 = \mu_2 \).
+
+\begin{figure}[h!]
+      \centering
+      \includegraphics[width = 0.75\columnwidth]{figures/cphi_heatmap.pdf}
+      \caption{
+            Phase difference \( \varphi(\mu_1, \mu_2 )\) for various values of couplings (on the left). \( (C, \varphi)\)-diagrams (on the right) for fixed ratios of couplings ( \( \mu_2 / \mu_1 = 1 + \delta \), corresponding lines are shown on the left ).
+             \( \dw = 0.2, T^* = 100 T  \) 
+            \label{fig:Cphi_hm}
+      }
+\end{figure}
+
+Note that the values \( \varphi(\mu_1, \mu_2 )\) consistently decrease upon any increase in coupling, \Cref{fig:Cphi_hm}, as expected. We additionally show (\Cref{fig:Cphi_hm}, right) specific slices of \( \varphi(\mu_1, \mu_2 )\) and \( C(\mu_1, \mu_2 )\) in the following manner: we fix the ratio between two couplings, \( \frac{\mu_2}{\mu_1} = 1 + \delta \) and plot corresponding curve \( \gamma_\delta = ( C(\mu_1, (1+\delta)\mu_1 ), \varphi(\mu_1, (1+\delta)\mu_1 )  )\) in the \( ( C, \varphi ) \) phase plane; couplings increase from top to bottom. Besides increasingly erratic behaviour in the case of highly disbalanced and small couplings, one may note that lines overall follow each other very similarly. 
+
+
+
+
+
+
+
+
+
+
 
 
 
