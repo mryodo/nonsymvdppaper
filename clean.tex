@@ -146,6 +146,34 @@ It is worth pointing out that:
 
 
 
+\subsection{ The smiling whale conundrum }
+
+We have established a problem for higher values of \( \dw \), \Cref{fig:dw06}, which we refer as a \emph{smiling whale} problem.\todo{ is there an idea about \( \frac{1+\dw}{1-\dw} \) in comparison with \( 2 \)? So \( 3\dw \ge 1 \)} 
+
+\begin{figure}[hbtp]
+      \centering
+      \includegraphics[width = 1.0\columnwidth]{figures/06.png}
+      \caption{
+            Synchronization of oscillators (\Cref{eq:system}) in frequency (left and center panes) and in phase (right pane). \( \dw = 0.6 \), integration time is set to \( N = 100 \). {\color{rwth-red}Logarithmic scale in the colorbar.}
+            \label{fig:dw06}
+      }
+\end{figure}
+
+Let us consider the three principal points:
+\begin{equation}
+      \left( \mu_1, \mu_2 \right) = \left( 0.7, 0.08 \right) \qquad \left( \mu_1, \mu_2 \right) = \left( 0.7, 0.16 \right) \qquad \left( \mu_1, \mu_2 \right) = \left( 0.7, 0.32 \right)
+\end{equation}
+\todo{you may have to change \( \mu_1 \) and \( \mu_2\) order here }
+
+\begin{figure}[hbtp]
+      \centering
+      \includegraphics[width = 1.0\columnwidth]{figures/examples_trio.pdf} 
+\end{figure}
+
+The point of the plot above is more or less simple: we get at least twice as much minima per period for the faster oscillator \( y(t) \), which makes our minima stabilization procedure to go wild. Instead one should probably think about a more nuanced approach.     
+
+
+
 \section{ Vertical shift and phase difference }
 
 Following the previously established results for the symmetrically coupled vdP oscillators, we revisit previously unseen appearance of pre-limit vertical shift between oscillators.
