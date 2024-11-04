@@ -168,10 +168,35 @@ Let us consider the three principal points:
 \begin{figure}[hbtp]
       \centering
       \includegraphics[width = 1.0\columnwidth]{figures/examples_trio.pdf} 
+      \label{fig:3_solutions}
 \end{figure}
 
 The point of the plot above is more or less simple: we get at least twice as much minima per period for the faster oscillator \( y(t) \), which makes our minima stabilization procedure to go wild. Instead one should probably think about a more nuanced approach.     
 
+
+\section{ Proper way to define synchronization }
+
+Let us redefine synchronization in a more rigorous way that requires both frequency synchronization and deal with the shape of the solutions.
+
+\begin{enumerate}[ topsep = -0.5em, itemsep = -0.25em ]
+      \item[\color{rwth-blue}(i)] as earlier, let us consider \textit{instantaneous} frequencies as \( \left\{ \Omega_x^{(i)} \right\} = \left\{ \frac{1}{ \tau_x^{(i+1)} - \tau_x^{(i)} } \right\} \) and \( \left\{ \Omega_y^{(i)} \right\} = \left\{ \frac{1}{ \tau_y^{(i+1)} - \tau_y^{(i)} } \right\} \) respectively; we require them to be both \textit{stable} and the \textit{same}. Let us refer to such configurations as \emph{weakly synchronized}: here we get frequency synchronization, but allow fundamentally different shapes of two solutions (e.g. like in the center pane of \Cref{fig:3_solutions});
+      \item[\color{rwth-blue}(i)] let \( \Omega_x^{(i)} \approx \Omega_y^{(i)} = \Omega \) and \( T = \frac{2\pi}{\Omega} \) are ``common'' frequency and period respectively; then for any \( \tau \in [0; T ] \) we can compute the sliding correlation  \( \Corr_{x,y}(\tau) \) between \( x(t) \) and \( y(t+\tau)\) for \( t > T^* \).
+\end{enumerate} 
+
+In this setup, the maximum of  \( \Corr_{x,y}(\tau) \) corresponds to the actual phase difference, \( \Delta\varphi = \argmax_{\tau \in [0; T ]} \Corr_{x,y}(\tau) \), and the value \( \Corr_{x,y}(\Delta \varphi ) \) describes the closeness of the shapes of \( x(t )\) and \( y(t) \). The case of \( \Corr_{x,y}(\Delta \varphi ) \approx 1 \) could be considered \emph{strongly synchronized}. 
+
+
+\begin{figure}[hbtp]
+      \centering
+      \includegraphics[width = 1.0\columnwidth]{figures/whale_new_06.pdf} 
+      \label{fig:new_whale}
+\end{figure}
+
+\begin{remark}
+      Strong synchronization removes the whale's smile.
+\end{remark}
+
+In a sense, we get what we expected: there is some intermediate regime (center pane on \Cref{fig:3_solutions}) which corresponds to synchronized in frequency, but not in shape oscillators. If we check the shape of the oscillators via the sliding correlation score  \( \Corr_{x,y}(\Delta \varphi )  \), we can avoid this intermediate regime altogether. However, the synchronization remain non-monotonic (in a sense that one of couplings can increase and destroy the synchronization); one should properly inspect it, or just assume a ``monotonic area'' of couplings instead (such that if for \( (\mu_1, \mu_2)\) the system is strongly synchronized, then it is synchronized for every   \( (\mu'_1, \mu'_2)\) where \( \mu_1 \le \mu'_1\) and \( \mu_2 \le \mu'_2 \)).
 
 
 \section{ Vertical shift and phase difference }
